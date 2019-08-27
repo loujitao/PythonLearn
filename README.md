@@ -1,5 +1,6 @@
 python学习大纲
-    1）python安装包与开发工具（3.6  pycharm）
+
+    1）python安装包与开发工具（3.6.5  pycharm）
 
     2）数据结构与流程控制 （grammar）
 
