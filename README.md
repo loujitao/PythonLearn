@@ -4,8 +4,17 @@ python学习大纲
 
     2）数据结构与流程控制 （grammar）
 
+        数据结构：int,boolean,decimal,string,tuple,list,set,dictionary
+        流程控制：if语句，while循环，for循环，break,continue
+
     3）函数相关（function）
+
+        定义函数；pass关键字；函数参数和返回值；lambda；递归函数；函数中的作用域
 
     4）面向对象（oop）
 
+        定义类和实例；属性；类中的方法；类的继承；组合has-a有一个；python的多态
+
     5）异常处理（exception）
+
+        异常处理的简单结构；捕获多种异常；异常处理中的else；finally关键字；raise关键字；with结构
