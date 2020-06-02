@@ -78,7 +78,7 @@ def get_taglist(list_url):
       # 4）获取套图的名称
       a_text=a["title"]
       dir_Name = re.sub("[\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+", "", a_text)
-      print(a_href +" : "+a_text)
+      # print(a_href +" : "+a_text)
       tup_list.append((a_href,dir_Name))
     # print(tup_list)
     return tup_list
@@ -105,37 +105,39 @@ def  get_jpg(url,dirName):
     mkdir(fileDir)
     # 拿到URL，或者下载图片
     img=imgs.select("#ArticlePicBox > p > img")
-
     #图片url
-    img_url=img["src"]
-    jpg=requests.get(img_url)
-    #截取获取图片名
-    name=img_url.split("/")[-1]
-    print("图片名为："+name)
-    # 打开文件，保存文件
-    with open(fileDir+"\\"+name,"wb+") as file:
-        file.write(jpg.content)
+    img_url=img[0]
+    print(img)
+    # jpg=requests.get(img_url)
+    # #截取获取图片名
+    # name=img_url.split("/")[-1]
+    # print("图片名为："+name)
+    # # 打开文件，保存文件
+    # with open(fileDir+"\\"+name,"wb+") as file:
+    #     file.write(jpg.content)
 
 
 
 
 
 if __name__ == '__main__':
-    #获取标签的栏目url
-    tag_list= get_tagUrl()
-    for t in tag_list:
-        index_url=t[0]
-        index_dir=t[1]
+    # #获取标签的栏目url
+    # tag_list= get_tagUrl()
+    # for t in tag_list:
+    #     index_url=t[0]
+    #     index_dir=t[1]
+        index_url="/xieemanhua/"
+        index_dir="邪恶漫画"
         file_dir = file_dir + index_dir+"\\"
         mkdir(index_dir)
         #获取分类的总页数url集合
-        page=get_maxPage(url+"/weimeitupian/")
+        page=get_maxPage(url+index_url)
         i=1
         while i <= int(page):
-            list_url = url + "/weimeitupian/"
+            list_url = url + index_url
             if i>1:
-                list_url=url+"/weimeitupian/index_{}.html".format(i)
-            print(list_url)
+                list_url=url+index_url+"index_{}.html".format(i)
+            # print(list_url)
             i=i+1
             #获取单页url中的url_list
             tup_list=get_taglist(list_url)
@@ -149,7 +151,7 @@ if __name__ == '__main__':
                     if j>1:
                         xurl="_{}.html".format(j)
                         jpg_url=jpg_url.replace(".html",xurl,1)
-                        print(jpg_url)
+                        # print(jpg_url)
                     get_jpg(jpg_url, name)
 
 
