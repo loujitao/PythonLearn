@@ -32,19 +32,32 @@ headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537
 file_dir="F:\\pyData\\tupian\\guochan\\"
 
 
-res=requests.get(url,headers)
-soup=BeautifulSoup(res.text,"html.parser")
 
-#下拉标签部分url
-#     #tag_ul
 
-fenlei=["https://www.meitulu.com/xihuan/","https://www.meitulu.com/xihuan/rihan",
+
+fenlei=[ "https://www.meitulu.com/xihuan/rihan",
         "https://www.meitulu.com/xihuan/gangtai","https://www.meitulu.com/xihuan/guochan"]
 
 
-#第一次遍历  国产分类  拿到国产分类下的url列表     翻页
-
-
+#下拉标签部分url
+def  get_tagUrl():
+    r = requests.get(url, headers)
+    r.encoding = 'utf-8'
+    sp = BeautifulSoup(r.text, "html.parser")
+    # 1) 下拉标签部分url
+    tag=sp.select("#tag_ul > li > a")
+    # 构建一个tuple的集合
+    tag_list = []
+    for a in tag:
+      # 3）获取套图的url
+      a_href=a["href"]
+      # 4）获取套图的名称
+      # a_text=a.get_text()
+      # dir_Name = re.sub("[\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+", "", a_text)
+      # print(a_href +" : "+a_text)
+      # tag_list.append((a_href,dir_Name))
+      tag_list.append(a_href)
+    return tag_list
 
 
 #第二次遍历  获取总共有多少页              翻页
@@ -80,6 +93,7 @@ def get_personlist(list_url):
     # print(tup_list)
     return tup_list
 
+
 #获取人物图片最大页数
 def get_jpg_pages(jpg_url):
     r = requests.get(jpg_url, headers)
@@ -90,6 +104,7 @@ def get_jpg_pages(jpg_url):
     page=sp.select("#pages > a")
     max_page=page[-2].getText()
     return  max_page
+
 
 #获取人物图片     保存      翻页
 def  get_jpg(url,dirName):
@@ -133,28 +148,31 @@ def  get_jpg(url,dirName):
 
 
 if __name__ == '__main__':
-    # u="https://www.meitulu.com/item/22106_{}.html"
-    # i=2
-    # while i<=10:
-    #     get_jpg(u.format(i),"[喵糖映画] VOL.116 短裙喵耳 写真套图")
-    #     i=i+1
-    max_page= get_maxPage("https://www.meitulu.com/guochan/")
-    i=1
-    tup_list =[]
-    while i <= int(max_page):
-        if i<=1:
-            tup_list = get_personlist("https://www.meitulu.com/guochan/")
-        else:
-            tup_list=get_personlist("https://www.meitulu.com/guochan/{}.html".format(i))
-        i=i+1
-        for tup in tup_list:
-            (jpg_url ,jpg_name)=tup
-            pages=get_jpg_pages(jpg_url)
-            j=1
-            while j < int(pages):
-                if j <=1:
-                    get_jpg(jpg_url, jpg_name)
-                else:
-                    str="_{}.html".format(j)
-                    get_jpg(jpg_url.replace(".html",str), jpg_name)
-                j=j+1
+    print("============  开始下载标签类的套图  ================")
+    #获取标签的栏目url
+    tag_list= get_tagUrl()
+    fenlei= fenlei+tag_list
+    # print(fenlei)
+    #获取标题栏的四个主栏目
+    for index_url in fenlei:
+        max_page= get_maxPage(index_url)
+        i=1
+        tup_list =[]
+        while i <= int(max_page):
+            if i<=1:
+                tup_list = get_personlist(index_url)
+            else:
+                tup_list=get_personlist(index_url+"/{}.html".format(i))
+            i=i+1
+            for tup in tup_list:
+                (jpg_url ,jpg_name)=tup
+                pages=get_jpg_pages(jpg_url)
+                j=1
+                while j < int(pages):
+                    if j <=1:
+                        get_jpg(jpg_url, jpg_name)
+                    else:
+                        str="_{}.html".format(j)
+                        get_jpg(jpg_url.replace(".html",str), jpg_name)
+                    j=j+1
+
