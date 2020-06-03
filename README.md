@@ -18,3 +18,6 @@ python学习大纲
     5）异常处理（exception）
 
         异常处理的简单结构；捕获多种异常；异常处理中的else；finally关键字；raise关键字；with结构
+
+    6)爬虫框架scrapy常用命令：
+            创建项目： scrapy startproject pyimgs
