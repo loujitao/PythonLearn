@@ -21,3 +21,4 @@ python学习大纲
 
     6)爬虫框架scrapy常用命令：
             创建项目： scrapy startproject pyimgs
+            创建一个爬虫：scrapy genspider example example.com
