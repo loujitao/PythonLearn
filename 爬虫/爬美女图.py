@@ -29,19 +29,19 @@ import requests
 from bs4 import BeautifulSoup
 url="https://www.meitulu.com/"
 headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"}
-file_dir="F:\\pyData\\tupian\\guochan\\"
+file_dir="D:\\pyData\\tupian\\guochan\\"
 
 
 
 
 
-fenlei=[ "https://www.meitulu.com/xihuan/rihan",
-        "https://www.meitulu.com/xihuan/gangtai","https://www.meitulu.com/xihuan/guochan"]
+fenlei=["https://www.meitulu.com/guochan", "https://www.meitulu.com/rihan", "https://www.meitulu.com/gangtai",
+       "https://www.meitulu.com/xihuan"]
 
 
 #下拉标签部分url
 def  get_tagUrl():
-    r = requests.get(url, headers)
+    r = requests.get(url,  headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
     # 1) 下拉标签部分url
@@ -62,7 +62,7 @@ def  get_tagUrl():
 
 #第二次遍历  获取总共有多少页              翻页
 def get_maxPage(list_url):
-    r = requests.get(list_url, headers)
+    r = requests.get(list_url,  headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
 
@@ -73,7 +73,7 @@ def get_maxPage(list_url):
 
 #第二次遍历  获取单页的列表url集合              翻页
 def get_personlist(list_url):
-    r = requests.get(list_url, headers)
+    r = requests.get(list_url,  headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
 
@@ -87,7 +87,7 @@ def get_personlist(list_url):
       a_href=a["href"]
       # 4）获取套图的名称
       a_text=a.get_text()
-      dir_Name = re.sub("[\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+", "", a_text)
+      dir_Name = re.sub("[\.\!\/_,:$%^*()+\"\']+|[+——！，。：？、~@#￥%……&*（）]+", "", a_text)
       # print(a_href +" : "+a_text)
       tup_list.append((a_href,dir_Name))
     # print(tup_list)
@@ -96,19 +96,21 @@ def get_personlist(list_url):
 
 #获取人物图片最大页数
 def get_jpg_pages(jpg_url):
-    r = requests.get(jpg_url, headers)
+    r = requests.get(jpg_url, headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
 
     # 1) 先拿到页脚列表  找出最大页
     page=sp.select("#pages > a")
-    max_page=page[-2].getText()
+    max_page=1
+    if len(page):
+        max_page=page[-2].getText()
     return  max_page
 
 
 #获取人物图片     保存      翻页
 def  get_jpg(url,dirName):
-    r=requests.get(url,headers)
+    r=requests.get(url, headers=headers)
     r.encoding = 'utf-8'
     # print(r.text)
     imgs=BeautifulSoup(r.text,"html.parser")
@@ -135,26 +137,30 @@ def  get_jpg(url,dirName):
         list1.append(i["src"])
     #获取单张图片
     for x in list1:
-        jpg=requests.get(x)
-        #截取获取图片名
-        name=x.split("/")[-1]
-        print("图片名为："+name)
-        # 打开文件，保存文件
-        with open(fileDir+"\\"+name,"wb+") as file:
-            file.write(jpg.content)
-
+        try:
+            jpg=requests.get(x,headers=headers)
+            #截取获取图片名
+            name=x.split("/")[-1]
+            name=re.sub("[\!\/_,:$%^*()+\"\']+|[+——！，。：？、~@#￥%……&*（）]+", "", name)
+            print("图片名为："+name)
+            # 打开文件，保存文件
+            with open(fileDir+"\\"+name,"wb+") as file:
+                file.write(jpg.content)
+        except:
+            print("======"+x)
+            continue
 
 
 
 
 if __name__ == '__main__':
-    print("============  开始下载标签类的套图  ================")
     #获取标签的栏目url
     tag_list= get_tagUrl()
     fenlei= fenlei+tag_list
     # print(fenlei)
     #获取标题栏的四个主栏目
     for index_url in fenlei:
+        print(index_url)
         max_page= get_maxPage(index_url)
         i=1
         tup_list =[]
@@ -166,6 +172,7 @@ if __name__ == '__main__':
             i=i+1
             for tup in tup_list:
                 (jpg_url ,jpg_name)=tup
+                print(jpg_url)
                 pages=get_jpg_pages(jpg_url)
                 j=1
                 while j < int(pages):

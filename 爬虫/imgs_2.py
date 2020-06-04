@@ -27,12 +27,12 @@ import requests
 from bs4 import BeautifulSoup
 url="https://www.duotoo.com"
 headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"}
-file_dir="F:\\pyData\\tupian\\duotuwang\\"
+file_dir="D:\\pyData\\tupian\\duotuwang\\"
 
 
 #找出所有分类url和分类名称
 def  get_tagUrl():
-    r = requests.get(url, headers)
+    r = requests.get(url, headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
     # 1) 下拉标签部分url
@@ -51,7 +51,7 @@ def  get_tagUrl():
 
 #找出分类下的最大页数
 def get_maxPage(list_url):
-    r = requests.get(list_url, headers)
+    r = requests.get(list_url, headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
     # 1) 先拿到页脚列表  找出最大页
@@ -63,7 +63,7 @@ def get_maxPage(list_url):
 
 #获取这个分类下的列表url集合
 def get_taglist(list_url):
-    r = requests.get(list_url, headers)
+    r = requests.get(list_url, headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
 
@@ -77,7 +77,7 @@ def get_taglist(list_url):
       a_href=a["href"]
       # 4）获取套图的名称
       a_text=a["title"]
-      dir_Name = re.sub("[\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+", "", a_text)
+      dir_Name = re.sub("[\.\!\/_,:$%^*(+\"\']+|[+——！，：。？、~@#￥%……&*（）]+", "", a_text)
       # print(a_href +" : "+a_text)
       tup_list.append((a_href,dir_Name))
     # print(tup_list)
@@ -86,36 +86,42 @@ def get_taglist(list_url):
 
 #获取单个套图最大页数
 def get_jpg_pages(jpg_url):
-    r = requests.get(jpg_url, headers)
+    r = requests.get(jpg_url, headers=headers)
     r.encoding = 'utf-8'
     sp = BeautifulSoup(r.text, "html.parser")
     # 1) 先拿到页脚列表  找出最大页
     page=sp.select(".pages > ul > li > a")
-    max_page=page[-2].getText()
+    max_page =1
+    if len(page):
+        max_page=page[-2].getText()
     return  max_page
 
 
 #获取人物图片     保存      翻页
 def  get_jpg(url,dirName):
-    r=requests.get(url,headers)
+    r=requests.get(url,headers=headers)
     r.encoding = 'utf-8'
     # print(r.text)
     imgs=BeautifulSoup(r.text,"html.parser")
     fileDir=file_dir+dirName
     mkdir(fileDir)
     # 拿到URL，或者下载图片
-    img=imgs.select("#ArticlePicBox > p > img")
-    #图片url
-    img_url=img[0]
-    print(img)
-    # jpg=requests.get(img_url)
-    # #截取获取图片名
-    # name=img_url.split("/")[-1]
-    # print("图片名为："+name)
-    # # 打开文件，保存文件
-    # with open(fileDir+"\\"+name,"wb+") as file:
-    #     file.write(jpg.content)
-
+    img=imgs.select("#ArticlePicBox\ TXid43 img")
+    if len(img):
+        #图片url
+        img_url=img[0]["src"]
+        # print(img)
+        jpg=requests.get(img_url,headers=headers,verify=False)
+        #截取获取图片名
+        name=img_url.split("/")[-1]
+        name = re.sub("[\!\/_,:$%^*(+\"\']+|[+——！，：。？、~@#￥%……&*（）]+", "", name)
+        print("图片名为："+name)
+        # 打开文件，保存文件
+        try:
+            with open(fileDir+"\\"+name,"wb+") as file:
+                file.write(jpg.content)
+        except:
+            print("========================")
 
 
 
@@ -126,8 +132,8 @@ if __name__ == '__main__':
     # for t in tag_list:
     #     index_url=t[0]
     #     index_dir=t[1]
-        index_url="/xieemanhua/"
-        index_dir="邪恶漫画"
+        index_url="/cosplay/"
+        index_dir="cosplay"
         file_dir = file_dir + index_dir+"\\"
         mkdir(index_dir)
         #获取分类的总页数url集合
@@ -148,10 +154,13 @@ if __name__ == '__main__':
                 p=get_jpg_pages(jpg_url)
                 j=1
                 while j<= int(p):
+                    turl = jpg_url
                     if j>1:
                         xurl="_{}.html".format(j)
-                        jpg_url=jpg_url.replace(".html",xurl,1)
-                        # print(jpg_url)
-                    get_jpg(jpg_url, name)
+                        turl=jpg_url.replace(".html",xurl,1)
+                        print(turl)
+                    j=j+1
+                    get_jpg(turl, name)
+
 
 
