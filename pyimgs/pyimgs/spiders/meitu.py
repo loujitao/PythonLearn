@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import  logging
+
+logger=logging.getLogger(__name__)
 
 
 class MeituSpider(scrapy.Spider):

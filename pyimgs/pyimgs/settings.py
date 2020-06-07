@@ -14,11 +14,10 @@ BOT_NAME = 'pyimgs'
 SPIDER_MODULES = ['pyimgs.spiders']
 NEWSPIDER_MODULE = 'pyimgs.spiders'
 
-
+LOG_LEVEL="WARNING"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pyimgs (+http://www.yourdomain.com)'
 USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
-
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
@@ -53,9 +52,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'pyimgs.middlewares.PyimgsDownloaderMiddleware': 543,
-#}
+# DOWNLOADER_MIDDLEWARES = {
+#    'pyimgs.SeleniumMiddlewares.SeleniumDownloaderMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -65,9 +64,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'pyimgs.pipelines.PyimgsPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'pyimgs.pipelines.PyimgsPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

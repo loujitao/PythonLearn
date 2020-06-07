@@ -1,12 +1,19 @@
 from selenium  import webdriver
+from selenium.webdriver.chrome.options import Options
 import time
 import  logging     #日志模块
 logger=logging.getLogger("__name__")
 
-#驱动版本要跟谷歌浏览器版本对应，没有对应的选择相近版本的也行
-driver_dir="D:\pyproject\PythonLearn\driver\chromedriver.exe"
+#驱动版本要跟谷歌浏览器版本对应，没有对应的选择相近版本的也行  可以配置到环境的path中，那样就不需要指定了
+# driver_dir="D:\pyproject\PythonLearn\driver\chromedriver.exe"
 #加载浏览器的驱动
-driver = webdriver.Chrome(driver_dir)
+# driver = webdriver.Chrome(driver_dir)
+
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+# 不打开浏览器执行
+driver = webdriver.Chrome(chrome_options=chrome_options)
 #目录页url
 index_url = 'https://www.biqukan.com/1_1496/'
 #用作拼接章节页时，补充的前置域名
