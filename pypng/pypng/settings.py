@@ -19,7 +19,7 @@ LOG_LEVEL = "WARNING"
 # LOG_FILE = "./log.log"
 
 FEED_EXPORT_ENCODING = 'utf-8'
-SAVE_FILE = "D:\\pyData\\tupian\\mmshe\\data.json"
+SAVE_FILE = "F:\\pyData\\tupian\\mmshe\\data.json"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pypng (+http://www.yourdomain.com)'
@@ -46,10 +46,11 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml,image/jpeg,*/*;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'Referer': 'https://www.aitaotu.com/guonei/56230.html',
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
@@ -61,7 +62,6 @@ ROBOTSTXT_OBEY = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    'pypng.middlewares.PypngDownloaderMiddleware': 543,
-
 }
 
 # Enable or disable extensions
@@ -74,10 +74,11 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'pypng.pipelines.PypngPipeline': 300,
-   'pypng.JsonWriterPipeline.JsonWriterPipeline': 301
+   # 'pypng.JsonWriterPipeline.JsonWriterPipeline': 301,
+   'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
 }
 #设置图片下载路径
-IMAGES_STORE = 'D:\\pyData\\tupian\\mmshe'
+IMAGES_STORE = 'F:\\pyData\\tupian\\mmshe'
 # 过期天数   #90天内抓取的都不会被重抓
 IMAGES_EXPIRES = 90
 

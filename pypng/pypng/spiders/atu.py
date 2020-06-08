@@ -22,7 +22,7 @@ class AtuSpider(scrapy.Spider):
                 item={}
                 item["page_href"] = m.xpath("./a[@class='Pli-litpic']/@href").extract_first()
                 item["page_title"] = m.xpath("./a[@class='Pli-litpic']/@title").extract_first()
-                item["imgs"]=[]
+                item["img_url"]=[]
                 # print(item)
                 # 记录商品详情页
                 yield scrapy.Request(
@@ -40,8 +40,10 @@ class AtuSpider(scrapy.Spider):
 
     def parse_list(self, response):
         item=response.meta["item"]
-        imgs = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
-        item["imgs"].append(imgs)
+        item["img_url"] = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
+        item["img_name"] = item["img_url"].split("/")[-1]
+        yield item
+
         next_page = response.xpath("//div[@class='pages']/ul/li/a[contains(text(),'下一页')]/@href").extract_first()
         if next_page is not None:
             yield scrapy.Request(
@@ -49,11 +51,6 @@ class AtuSpider(scrapy.Spider):
                 callback=self.parse_list,
                 meta={"item": deepcopy(item)}
             )
-        else:
-            # print("=======")
-            # print("=======")
-            # print("=======")
-            # print(item)
-            # return
-            yield  item
+
+
 
