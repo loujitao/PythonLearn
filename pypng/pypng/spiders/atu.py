@@ -40,8 +40,11 @@ class AtuSpider(scrapy.Spider):
 
     def parse_list(self, response):
         item = response.meta["item"]
-        item["img_url"] = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
-        item["img_name"] = item["img_url"].split("/")[-1]
+        # item["img_url"] = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
+        a_list = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract()
+        for a in a_list:
+            item["img_url"] = a
+            item["img_name"] = item["img_url"].split("/")[-1]
         yield item
 
         next_page = response.xpath("//div[@class='pages']/ul/li/a[contains(text(),'下一页')]/@href").extract_first()
