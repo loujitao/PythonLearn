@@ -4,8 +4,8 @@ from copy import deepcopy
 
 class AtuSpider(scrapy.Spider):
     name = 'atu'
-    allowed_domains = ['aitaotu.com','img.aitaotu.cc']
-    start_urls = ['https://www.aitaotu.com/tag/miaotangyinghua.html']
+    allowed_domains = ['aitaotu.com', 'img.aitaotu.cc']
+    start_urls = ['https://www.aitaotu.com/tag/tuwanyinghua.html']
 
 # def get_tag():
 #     # 1、tag标签的地址URL
@@ -17,7 +17,7 @@ class AtuSpider(scrapy.Spider):
 
     # 2、某个品牌下，单个图集的URL列表
     def parse(self, response):
-            m_list=response.xpath("//div[@id='mainbody']/ul/li")
+            m_list = response.xpath("//div[@id='mainbody']/ul/li")
             for m in m_list:
                 item={}
                 item["page_href"] = m.xpath("./a[@class='Pli-litpic']/@href").extract_first()
@@ -39,7 +39,7 @@ class AtuSpider(scrapy.Spider):
                 )
 
     def parse_list(self, response):
-        item=response.meta["item"]
+        item = response.meta["item"]
         item["img_url"] = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
         item["img_name"] = item["img_url"].split("/")[-1]
         yield item

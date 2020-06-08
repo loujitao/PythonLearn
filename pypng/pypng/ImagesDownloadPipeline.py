@@ -6,6 +6,7 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
+import re
 
 class ImagesDownLoadPipeline(ImagesPipeline):
     # DEFAULT_IMAGES_URLS_FIELD = 'image_urls'
@@ -27,9 +28,11 @@ class ImagesDownLoadPipeline(ImagesPipeline):
        #          ]
 
     def file_path(self, request, response=None, info=None):
-        dir_name=request.meta['page_title']
-        jpg_name=request.meta['img_name']
-        jpg_path=dir_name+"/"+jpg_name
+        dir_name = request.meta['page_title']
+        dir_name = re.sub("[.!/_,$%^*(+\"\']+|[+—！，。？、~@#￥%…&*（）]+", "", dir_name)
+        dir_name = dir_name.replace(" ", "_")
+        jpg_name = request.meta['img_name']
+        jpg_path = dir_name+"/"+jpg_name
         return jpg_path
 
     def item_completed(self, results, item, info):

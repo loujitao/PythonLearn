@@ -19,7 +19,7 @@ LOG_LEVEL = "WARNING"
 # LOG_FILE = "./log.log"
 
 FEED_EXPORT_ENCODING = 'utf-8'
-SAVE_FILE = "F:\\pyData\\tupian\\mmshe\\data.json"
+SAVE_FILE = "D:\\pyData\\tupian\\mmshe\\data.json"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pypng (+http://www.yourdomain.com)'
@@ -47,9 +47,10 @@ ROBOTSTXT_OBEY = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml,image/jpeg,*/*;q=0.9,*/*;q=0.8',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
   'Referer': 'https://www.aitaotu.com/guonei/56230.html',
+  'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
 # Enable or disable spider middlewares
@@ -78,7 +79,7 @@ ITEM_PIPELINES = {
    'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
 }
 #设置图片下载路径
-IMAGES_STORE = 'F:\\pyData\\tupian\\mmshe'
+IMAGES_STORE = 'D:\\pyData\\tupian\\tuwanyh'
 # 过期天数   #90天内抓取的都不会被重抓
 IMAGES_EXPIRES = 90
 
