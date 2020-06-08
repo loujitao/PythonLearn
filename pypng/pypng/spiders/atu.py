@@ -5,7 +5,7 @@ from copy import deepcopy
 class AtuSpider(scrapy.Spider):
     name = 'atu'
     allowed_domains = ['aitaotu.com', 'img.aitaotu.cc']
-    start_urls = ['https://www.aitaotu.com/tag/tianshisheying.html']
+    start_urls = ['https://www.aitaotu.com/tag/MFStar.html']
 
 # def get_tag():
 #     # 1、tag标签的地址URL

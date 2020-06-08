@@ -16,6 +16,7 @@ NEWSPIDER_MODULE = 'pypng.spiders'
 
 
 LOG_LEVEL = "WARNING"
+# LOG_LEVEL = "DEBUG"
 # LOG_FILE = "./log.log"
 
 FEED_EXPORT_ENCODING = 'utf-8'
@@ -76,7 +77,8 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    # 'pypng.pipelines.PypngPipeline': 300,
    # 'pypng.JsonWriterPipeline.JsonWriterPipeline': 301,
-   'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
+   # 'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
+    'pypng.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 303
 }
 #设置图片下载路径
 IMAGES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
