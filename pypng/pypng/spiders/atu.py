@@ -5,7 +5,7 @@ from copy import deepcopy
 class AtuSpider(scrapy.Spider):
     name = 'atu'
     allowed_domains = ['aitaotu.com', 'img.aitaotu.cc']
-    start_urls = ['https://www.aitaotu.com/tag/tuwanyinghua.html']
+    start_urls = ['https://www.aitaotu.com/tag/tianshisheying.html']
 
 # def get_tag():
 #     # 1、tag标签的地址URL
@@ -40,12 +40,17 @@ class AtuSpider(scrapy.Spider):
 
     def parse_list(self, response):
         item = response.meta["item"]
+        # # 详情页是单张时
         # item["img_url"] = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract_first()
+        # item["img_name"] = item["img_url"].split("/")[-1]
+        # yield item
+
+        # #  详情页是多张时
         a_list = response.xpath("//div[@id='big-pic']/p/a/img/@src").extract()
         for a in a_list:
             item["img_url"] = a
-            item["img_name"] = item["img_url"].split("/")[-1]
-        yield item
+            item["img_name"] = a.split("/")[-1]
+            yield item
 
         next_page = response.xpath("//div[@class='pages']/ul/li/a[contains(text(),'下一页')]/@href").extract_first()
         if next_page is not None:

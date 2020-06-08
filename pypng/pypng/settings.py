@@ -49,7 +49,7 @@ ROBOTSTXT_OBEY = False
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
-  'Referer': 'https://www.aitaotu.com/guonei/56230.html',
+  'Referer': 'https://www.aitaotu.com/guonei/35485.html',
   'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
@@ -79,7 +79,7 @@ ITEM_PIPELINES = {
    'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
 }
 #设置图片下载路径
-IMAGES_STORE = 'D:\\pyData\\tupian\\tuwanyh'
+IMAGES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
 # 过期天数   #90天内抓取的都不会被重抓
 IMAGES_EXPIRES = 90
 
