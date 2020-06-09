@@ -13,7 +13,7 @@ def get_folder(fpath, wm_file, save_path):
     except Exception as e:
         print(traceback.print_exc())
 
-# 图片添加水印
+# 图片添加水印     在线生成水印图片 http://www.asoft.cn/wm/
 def img_water_mark(img_file, wm_file,save_path):
     try:
         img = Image.open(img_file)  # 打开图片
