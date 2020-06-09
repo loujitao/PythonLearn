@@ -8,7 +8,7 @@ from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
 import re
 
-#下载图片的pipeline
+# smtmm下载图片的pipeline
 class ImgTagDownLoadPipeline(ImagesPipeline):
     # DEFAULT_IMAGES_URLS_FIELD = 'image_urls'
     # DEFAULT_IMAGES_RESULT_FIELD = 'images'
