@@ -69,6 +69,7 @@ class PyimgsDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
+        request.headers["USER_AGENT"] = spider.settings.get("USER_AGENT")
         # Called for each request that goes through the downloader
         # middleware.
 
@@ -78,7 +79,7 @@ class PyimgsDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
+        # return None
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.

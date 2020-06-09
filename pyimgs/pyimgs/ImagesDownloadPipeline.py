@@ -28,11 +28,11 @@ class ImgTagDownLoadPipeline(ImagesPipeline):
         tag_name = request.meta['tag_title']
         dir_name = request.meta['img_title']
         dir_name = tag_name+"/"+dir_name
-        dir_name = re.sub("[\s]+", "", dir_name)
+        dir_name = re.sub("[\s,.:]+", "", dir_name)
         jpg_name = request.meta['img_name']
         jpg_path = dir_name+"/"+jpg_name
         return jpg_path
 
     def item_completed(self, results, item, info):
-        item['img_name'] = [ v['path'] for k,v in results if k ]
-        return  item
+        item['img_name'] = [v['path'] for k,v in results if k ]
+        return item

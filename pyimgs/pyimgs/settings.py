@@ -14,7 +14,7 @@ BOT_NAME = 'pyimgs'
 SPIDER_MODULES = ['pyimgs.spiders']
 NEWSPIDER_MODULE = 'pyimgs.spiders'
 
-LOG_LEVEL="WARNING"
+LOG_LEVEL = "WARNING"
 # LOG_LEVEL="DEBUG"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pyimgs (+http://www.yourdomain.com)'
@@ -55,9 +55,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'pyimgs.SeleniumMiddlewares.SeleniumDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+   # 'pyimgs.SeleniumMiddlewares.SeleniumDownloaderMiddleware': 543,
+   'pyimgs.middlewares.PyimgsDownloaderMiddleware': 544
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -71,6 +72,10 @@ ITEM_PIPELINES = {
    # 'pyimgs.pipelines.PyimgsPipeline': 300,
     'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301
 }
+#设置图片下载路径
+IMAGES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
+# 过期天数   #90天内抓取的都不会被重抓
+IMAGES_EXPIRES = 90
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

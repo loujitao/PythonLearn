@@ -58,7 +58,10 @@ class MeituSpider(scrapy.Spider):
         imgs_list = response.xpath("//article[@class='article-content']/p/img")
         item["img_url"]=[]
         for imgs in imgs_list:
-            img_url = "https://smtmm.win"+imgs.xpath("./@data-original").extract_first()
+            img_u = imgs.xpath("./@src").extract_first()
+            if img_u is None:
+                img_u = imgs.xpath("./@data-original").extract_first()
+            img_url = "https://smtmm.win"+img_u
             item["img_url"].append(img_url)
-            print(item)
-            # yield  item
+            # print(item)
+            yield item
