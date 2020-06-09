@@ -15,6 +15,7 @@ SPIDER_MODULES = ['pyimgs.spiders']
 NEWSPIDER_MODULE = 'pyimgs.spiders'
 
 LOG_LEVEL="WARNING"
+# LOG_LEVEL="DEBUG"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pyimgs (+http://www.yourdomain.com)'
 USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
@@ -39,10 +40,12 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'Referer': 'https://smtmm.win/article/52652/',
+  'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
@@ -65,7 +68,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'pyimgs.pipelines.PyimgsPipeline': 300,
+   # 'pyimgs.pipelines.PyimgsPipeline': 300,
+    'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
