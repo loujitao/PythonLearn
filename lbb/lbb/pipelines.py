@@ -4,9 +4,13 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-from scrapy.exporters import CsvItemExporter
+class  LbbPipeline :
+    def process_item(self, item, spider):
+        return item
 
-class LbbPipeline:
+
+from scrapy.exporters import CsvItemExporter
+class PyCsvPipeline:
     def open_spider(self, spider):
         self.file = open("/home/bladestone/lbb.csv", "wb")
         self.exporter = CsvItemExporter(self.file,
@@ -20,6 +24,7 @@ class LbbPipeline:
     def close_spider(self, spider):
         self.exporter.finish_exporting()
         self.file.close()
+
 
 # pip install OpenPyxl  -i https://pypi.tuna.tsinghua.edu.cn/simple
 from openpyxl import Workbook
