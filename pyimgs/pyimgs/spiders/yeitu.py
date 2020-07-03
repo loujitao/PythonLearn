@@ -18,6 +18,18 @@ class YeituSpider(scrapy.Spider):
                detail_url,
                callback=self.detail_parse
            )
+       next_list = response.xpath("//div[@id='pages']/span/following-sibling::a[text()!='下一页']/@href").extract_first()
+       if next_list is not None:
+           yield scrapy.Request(
+               next_list,
+               callback=self.parse
+           )
 
     def detail_parse(self, response):
-        pass
+        item = {}
+        item['title'] = response.xpath("//div[@id='title']/h1/text()").extract_first()
+        item['url'] = response.xpath("//div[@class='img_box']/a/img/@href").extract_first()
+        next_page = response.xpath("//div[@id='pages']/span/following-sibling::a/text()").extract_first()
+        if next_page == '下一页':
+            item['url'] = response.xpath("//div[@class='img_box']/img/@href").extract_first()
+        next_url = response.xpath("//div[@id='pages']/span/following-sibling::a[text()!='下一页']/@href").extract_first()

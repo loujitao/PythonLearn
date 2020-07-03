@@ -43,8 +43,9 @@ ROBOTSTXT_OBEY = False
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
-  'Referer': 'http://www.ypppt.com/article/2020/5937.html',
+  # 'Referer': 'http://www.ypppt.com/article/2020/5937.html',
   # 'Referer': 'https://smtmm.win/article/52652/',
+  'Referer': '//www.yeitu.com/index.php',
   'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
@@ -68,18 +69,18 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   # 'pyimgs.pipelines.PyimgsPipeline': 300,
-   #  'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301,
-    'pyimgs.FileDownloadPipeline.MyFilePipeline': 302,
-}
+# ITEM_PIPELINES = {
+#    # 'pyimgs.pipelines.PyimgsPipeline': 300,
+#    #  'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301,
+#    #  'pyimgs.FileDownloadPipeline.MyFilePipeline': 302,
+# }
 #设置图片下载路径
-IMAGES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
+IMAGES_STORE = 'F:\\pyData\\tupian'
 # 过期天数   #90天内抓取的都不会被重抓
 IMAGES_EXPIRES = 90
 
 #设置文件下载路径
-FILES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
+FILES_STORE = 'F:\\pyData\\tupian'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
