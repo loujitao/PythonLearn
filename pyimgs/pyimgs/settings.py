@@ -69,11 +69,12 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    # 'pyimgs.pipelines.PyimgsPipeline': 300,
-#    #  'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301,
-#    #  'pyimgs.FileDownloadPipeline.MyFilePipeline': 302,
-# }
+ITEM_PIPELINES = {
+   # 'pyimgs.pipelines.PyimgsPipeline': 300,
+    'pyimgs.ImagesDownloadPipeline.YEIImgDownLoadPipeline': 301,
+    # 'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301,
+   #  'pyimgs.FileDownloadPipeline.MyFilePipeline': 302,
+}
 #设置图片下载路径
 IMAGES_STORE = 'F:\\pyData\\tupian'
 # 过期天数   #90天内抓取的都不会被重抓

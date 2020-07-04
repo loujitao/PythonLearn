@@ -36,3 +36,30 @@ class ImgTagDownLoadPipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
         item['img_name'] = [v['path'] for k,v in results if k ]
         return item
+
+
+# yeitu下载图片的pipeline
+class YEIImgDownLoadPipeline(ImagesPipeline):
+    # DEFAULT_IMAGES_URLS_FIELD = 'image_urls'
+    # DEFAULT_IMAGES_RESULT_FIELD = 'images'
+
+    DEFAULT_IMAGES_URLS_FIELD = 'img_url'
+    DEFAULT_IMAGES_RESULT_FIELD = 'img_name'
+
+    def  get_media_requests(self, item, info):
+        #单张图片的时候
+        return [Request(url,
+                        meta={ 'title': item['title'],
+                              'img_name': url.split("/")[-1], }
+                        ) for url in item.get("url")]
+
+    def file_path(self, request, response=None, info=None):
+        dir_name = request.meta['title']
+        dir_name = re.sub("[\s,.:]+", "", dir_name)
+        jpg_name = request.meta['img_name']
+        jpg_path = dir_name+"/"+jpg_name
+        return jpg_path
+
+    def item_completed(self, results, item, info):
+        item['img_name'] = [v['path'] for k,v in results if k ]
+        return item
