@@ -19,8 +19,8 @@ LOG_LEVEL = "WARNING"
 # LOG_LEVEL = "DEBUG"
 # LOG_FILE = "./log.log"
 
-FEED_EXPORT_ENCODING = 'utf-8'
-SAVE_FILE = "D:\\pyData\\tupian\\mmshe\\data.json"
+# FEED_EXPORT_ENCODING = 'utf-8'
+# SAVE_FILE = "D:\\pyData\\tupian\\a.json"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pypng (+http://www.yourdomain.com)'
@@ -48,9 +48,12 @@ ROBOTSTXT_OBEY = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  'Referer': 'https://www.aitaotu.com/guonei/35485.html',
+  # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'Accept-Language': 'zh-CN,zh;q=0.9',
+  # 'Referer': 'https://www.aitaotu.com/guonei/35485.html',
+  'Connection': 'keep-alive',
+  'Referer': 'hhttps://www.mmlsl.com/',
   'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
@@ -78,10 +81,11 @@ ITEM_PIPELINES = {
    # 'pypng.pipelines.PypngPipeline': 300,
    # 'pypng.JsonWriterPipeline.JsonWriterPipeline': 301,
    # 'pypng.ImagesDownloadPipeline.ImagesDownLoadPipeline': 302,
-    'pypng.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 303
+   # 'pypng.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 303
+     'pypng.ImagesDownloadPipeline.MmlslImgDownPipeline': 304
 }
 #设置图片下载路径
-IMAGES_STORE = 'D:\\pyData\\tupian\\aitaotu\\meituilegku1'
+IMAGES_STORE = 'D:\\pyData\\tupian\\mmlsl'
 # 过期天数   #90天内抓取的都不会被重抓
 IMAGES_EXPIRES = 90
 

@@ -69,7 +69,7 @@ class PypngDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
-        request.headers["USER_AGENT"]=spider.settings.get("USER_AGENT")
+        request.headers["USER_AGENT"] = spider.settings.get("USER_AGENT")
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
