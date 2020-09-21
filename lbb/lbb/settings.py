@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for pyimgs project
+# Scrapy settings for lbb project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,16 +9,16 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'pyimgs'
+BOT_NAME = 'lbb'
 
-SPIDER_MODULES = ['pyimgs.spiders']
-NEWSPIDER_MODULE = 'pyimgs.spiders'
+SPIDER_MODULES = ['lbb.spiders']
+NEWSPIDER_MODULE = 'lbb.spiders'
 
 LOG_LEVEL = "WARNING"
 # LOG_LEVEL = "DEBUG"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'pyimgs (+http://www.yourdomain.com)'
-USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
@@ -42,23 +42,21 @@ ROBOTSTXT_OBEY = False
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  # 'Referer': 'http://www.ypppt.com/article/2020/5937.html',
-  # 'Referer': 'https://smtmm.win/article/52652/',
-  'Referer': '//www.yeitu.com/index.php',
+  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+  'Referer': 'https://www.lebanban.com',
   'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
 }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'pyimgs.middlewares.PyimgsSpiderMiddleware': 543,
+#    'lbb.middlewares.LbbSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'pyimgs.middlewares.PyimgsDownloaderMiddleware': 544
+   'lbb.middlewares.LbbDownloaderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -70,18 +68,11 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'pyimgs.pipelines.PyimgsPipeline': 300,
-    'pyimgs.ImagesDownloadPipeline.YEIImgDownLoadPipeline': 301,
-    # 'pyimgs.ImagesDownloadPipeline.ImgTagDownLoadPipeline': 301,
-   #  'pyimgs.FileDownloadPipeline.MyFilePipeline': 302,
+   'lbb.pipelines.LbbPipeline': 300,
 }
-#设置图片下载路径
-IMAGES_STORE = 'F:\\pyData\\tupian'
-# 过期天数   #90天内抓取的都不会被重抓
-IMAGES_EXPIRES = 90
 
 #设置文件下载路径
-FILES_STORE = 'F:\\pyData\\tupian'
+FILES_STORE = 'F:\\pyData\\lbb'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

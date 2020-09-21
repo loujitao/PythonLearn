@@ -1,6 +1,8 @@
 python学习大纲
 
     1）python安装包与开发工具（3.6.5  pycharm）
+         pip install selenium  -i https://pypi.tuna.tsinghua.edu.cn/simple  （清华的）
+					              http://pypi.douban.com/simple/ (豆瓣的)
 
     2）数据结构与流程控制 （grammar）
 
