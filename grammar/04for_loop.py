@@ -33,3 +33,7 @@ print("======== 6 ============")
 #枚举方法   会自动列举出索引和索引位置元素
 for index,item in enumerate(languages):
     print(index,item)
+print("======== 7 ============")
+namess = {'a':1,'b':2}
+for index,item in namess.items():
+    print(index,item)
