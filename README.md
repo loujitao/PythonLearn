@@ -26,3 +26,7 @@ python学习大纲
             创建一个爬虫：scrapy genspider example example.com
                           scrapy genspider -t crawl  example example.com
             执行：  scrapy crawl smtmm
+
+    7) 数学基础和算法
+    8）数据分析pandas、numpy
+    9) 机器学习sklearn
